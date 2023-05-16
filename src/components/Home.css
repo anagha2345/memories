@@ -1,0 +1,19 @@
+.liked{
+    color: rgb(237, 38, 38);
+}
+
+
+.fixed_div{
+z-index: 1;
+
+
+}
+.row1{
+    display: flex;
+    align-items: last baseline;
+    justify-content:  space-between;
+}
+.scrollable_div{
+   
+    overflow-y: scroll;
+}
