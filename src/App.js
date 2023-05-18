@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './App.css';
-
+import Album from './components/Album';
 import Edit from './components/Edit';
 import Dele from './components/Dele';
 import Home from './components/Home';

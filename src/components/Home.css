@@ -1,6 +1,14 @@
 .liked{
     color: rgb(237, 38, 38);
 }
+.div_add{
+    justify-content: center;
+}
+.imgCard{
+    border-radius: 100px;
+    background-color: black;
+    
+}
 
 
 .fixed_div{
@@ -16,4 +24,22 @@ z-index: 1;
 .scrollable_div{
    
     overflow-y: scroll;
+}
+.add{
+   
+    width: 100px;
+    border-radius: 20px;
+
+}
+.add img{
+  border-radius: 23px;
+}
+Form{
+    padding: 40px;
+    background-color: rgba(161, 161, 198, 0.674);
+}
+.likedImg{
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
 }

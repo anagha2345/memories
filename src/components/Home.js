@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState,  } from 'react'
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -16,37 +16,35 @@ function Home() {
   const [memImage, setImage] = useState('')
   const [memDetails, setDetails] = useState('')
   const [date, setDate] = useState('')
-  const [likedItems,setLikedItems]=useState([])
+  const [likedItems, setLikedItems] = useState([])
 
   const handleClick = () => {
     setForm(true)
-
   }
-  
+
 
   const fetchData = async () => {
     const result = await axios.get('http://localhost:8000/getmemories')
- 
     setMemories(result.data.memories)
 
   }
 
 
-  const handleDelete=async(id) => {
-  const result=await axios.delete('http://localhost:8000/deleteMemory/'+id)
-  
-  alert(result.data.message)
-  fetchData()
+  const handleDelete = async (id) => {
+    const result = await axios.delete('http://localhost:8000/deleteMemory/' + id)
+    alert(result.data.message)
+    fetchData()
   }
 
-  const likeclick=(id)=>{
-    if(likedItems.includes(id)){
-      setLikedItems(likedItems.filter(item=>item !==id))
+
+  const likeclick = (id) => {
+    if (likedItems.includes(id)) {
+      setLikedItems(likedItems.filter(item => item !== id))
     }
-    else{
-      setLikedItems([...likedItems,id])
+    else {
+      setLikedItems([...likedItems, id])
     }
-    
+
   }
 
 
@@ -64,12 +62,11 @@ function Home() {
     }
     const memResult = await axios.post('http://localhost:8000/addMemory', body)
     alert(memResult.data.message)
-    
-     fetchData()
+    fetchData()
     setForm(false)
   }
 
-  
+
 
 
   useEffect(() => {
@@ -79,10 +76,11 @@ function Home() {
 
   return (
     <div className='container'>
-      <div class="row container">
-       
-        <div className="col-sm-3  col-md-6 container mt-5 ">
-         {!showForm && <Button onClick={handleClick} className='container mb-5 mt-5 text-center w-25' style={{height:'250px'}}><i class=" fa-solid fa-circle-plus "></i></Button>}
+      <div class="row">
+        <div className="col-lg-6 container mt-5  div_add" >
+          {!showForm && <div className=' add container w-25' style={{height:'200px'}}>
+            <img className=' w-100 ' onClick={handleClick} src='https://i.postimg.cc/YS5J28vY/add.png' ></img>
+          </div>}
           {showForm && <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail" >
               <Form.Label>Memory title</Form.Label>
@@ -101,53 +99,53 @@ function Home() {
               <Form.Control type="text" onChange={(e) => setImage(e.target.value)} />
             </Form.Group>
             <Button variant="primary" type="submit" onClick={(n) => addMemory(n)} >
-              Submit
+            Add
             </Button>
           </Form>}
-          <div>
-            <h2>favorites</h2>
-           {
-            likedItems.map(ids=>{
-              const fav=allMemories.find(item=>(item.id==ids))
-              return(
-                <div className='row'>
-                  <img className='' lg={3} src={fav.image}></img>
+
+
+
+          <div className='pt-5'>
+            <h2 className='text-center'>favorites</h2>
+            {
+              likedItems.map(ids => {
+                const fav = allMemories.find(items => (items.id == ids))
+                return (
+                  <div className='row'>
+                      <div className='col-lg-3'>
+                        <img className='likedImg'  src={fav.image}></img>
+                      </div>
                   </div>
-              )
-               })
-           
-           }
-              
-            
+                )
+              })
+            }
           </div>
-        </div> 
-        <div className="container col-md-6 ">
+        </div>
+
+
+        <div className="container col-md-6 mt-5" >
           <div class="ps-2 pe-2 pt-3">
             <h2 className='text-center'>memories</h2>
           </div>
           <div class=" row  memory_row ">
             {
               allMemories?.map(item => (
-                <div class="container w-50 sm={12} pt-5" >
-                  <Col className='' >
-                    <Card  className=''>
-                    <Card.Img variant="top" src={item.image} style={{height:'300px'}}/>
-
+                <div className="container w-50 sm={12} pt-5 " >
+                  <Col className='imgCard' >
+                    <Card className=''>
+                      <Card.Img variant="top " src={item.image} style={{ height: '300px' }} />
                       {/* <i class="fa-solid fa-ellipsis-vertical d-flex justify-content-end font-size: 24px me-2 mt-2"></i> */}
-
                       <Card.Body>
                         <Card.Title>{item.title}</Card.Title>
                         <Card.Text>
                           {item.description}
                         </Card.Text>
-                       <div className='row1'>
-                          <Link onClick={()=>likeclick(item.id)} className={likedItems.includes(item.id)?'liked':''}><i class="fa-solid fa-heart"></i></Link>
-                        <Link to={'view/'+item.id}><Button variant="primary">view</Button></Link>
-                          <Link onClick={()=>handleDelete(item.id)}><i class="fa-solid fa-trash d-flex justify-content-end"></i></Link>
-                          </div>
-                          </Card.Body>
-                     
-
+                        <div className='row1'>
+                          <Link onClick={() => likeclick(item.id)} className={likedItems.includes(item.id) ? 'liked' : ''}><i class="fa-solid fa-heart"></i></Link>
+                          <Link to={'view/' + item.id}><Button variant="primary">view</Button></Link>
+                          <Link onClick={() => handleDelete(item.id)}><i class="fa-solid fa-trash d-flex justify-content-end"></i></Link>
+                        </div>
+                      </Card.Body>
                     </Card>
                   </Col>
                 </div>
