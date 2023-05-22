@@ -107,18 +107,19 @@ function Home() {
 
           <div className='pt-5'>
             <h2 className='text-center'>favorites</h2>
+            <div className='row'>
             {
               likedItems.map(ids => {
                 const fav = allMemories.find(items => (items.id == ids))
                 return (
-                  <div className='row'>
-                      <div className='col-lg-3'>
-                        <img className='likedImg'  src={fav.image}></img>
-                      </div>
-                  </div>
+                      <div className='container col-lg-3 '>
+                        <Link to={'view/'+fav.id}><img className='likedImg' src={fav.image}></img></Link>
+                        <h3>{fav.title}</h3>
+                      </div> 
                 )
               })
             }
+            </div>
           </div>
         </div>
 
@@ -127,7 +128,7 @@ function Home() {
           <div class="ps-2 pe-2 pt-3">
             <h2 className='text-center'>memories</h2>
           </div>
-          <div class=" row  memory_row ">
+          <div class="row  memory_row">
             {
               allMemories?.map(item => (
                 <div className="container w-50 sm={12} pt-5 " >
